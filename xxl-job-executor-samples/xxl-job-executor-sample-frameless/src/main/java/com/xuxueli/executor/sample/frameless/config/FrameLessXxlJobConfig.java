@@ -20,12 +20,37 @@ public class FrameLessXxlJobConfig {
 
 
     private static FrameLessXxlJobConfig instance = new FrameLessXxlJobConfig();
+    private XxlJobExecutor xxlJobExecutor = null;
+
     public static FrameLessXxlJobConfig getInstance() {
         return instance;
     }
 
+    public static Properties loadProperties(String propertyFileName) {
+        InputStreamReader in = null;
+        try {
+            ClassLoader loder = Thread.currentThread().getContextClassLoader();
 
-    private XxlJobExecutor xxlJobExecutor = null;
+            in = new InputStreamReader(loder.getResourceAsStream(propertyFileName), "UTF-8");
+            ;
+            if (in != null) {
+                Properties prop = new Properties();
+                prop.load(in);
+                return prop;
+            }
+        } catch (IOException e) {
+            logger.error("load {} error!", propertyFileName);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    logger.error("close {} error!", propertyFileName);
+                }
+            }
+        }
+        return null;
+    }
 
     /**
      * init
@@ -67,32 +92,6 @@ public class FrameLessXxlJobConfig {
         if (xxlJobExecutor != null) {
             xxlJobExecutor.destroy();
         }
-    }
-
-
-    public static Properties loadProperties(String propertyFileName) {
-        InputStreamReader in = null;
-        try {
-            ClassLoader loder = Thread.currentThread().getContextClassLoader();
-
-            in = new InputStreamReader(loder.getResourceAsStream(propertyFileName), "UTF-8");;
-            if (in != null) {
-                Properties prop = new Properties();
-                prop.load(in);
-                return prop;
-            }
-        } catch (IOException e) {
-            logger.error("load {} error!", propertyFileName);
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    logger.error("close {} error!", propertyFileName);
-                }
-            }
-        }
-        return null;
     }
 
 }

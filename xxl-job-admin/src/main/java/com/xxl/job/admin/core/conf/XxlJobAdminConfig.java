@@ -19,33 +19,21 @@ import javax.sql.DataSource;
  * @author xuxueli 2017-04-28
  */
 @Component
-public class XxlJobAdminConfig implements InitializingBean{
+public class XxlJobAdminConfig implements InitializingBean {
     private static XxlJobAdminConfig adminConfig = null;
-    public static XxlJobAdminConfig getAdminConfig() {
-        return adminConfig;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        adminConfig = this;
-    }
-
     // conf
     @Value("${xxl.job.i18n}")
     private String i18n;
-
     @Value("${xxl.job.accessToken}")
     private String accessToken;
-
     @Value("${spring.mail.username}")
     private String emailUserName;
-
-    // dao, service
-
     @Resource
     private XxlJobLogDao xxlJobLogDao;
     @Resource
     private XxlJobInfoDao xxlJobInfoDao;
+
+    // dao, service
     @Resource
     private XxlJobRegistryDao xxlJobRegistryDao;
     @Resource
@@ -57,6 +45,14 @@ public class XxlJobAdminConfig implements InitializingBean{
     @Resource
     private DataSource dataSource;
 
+    public static XxlJobAdminConfig getAdminConfig() {
+        return adminConfig;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        adminConfig = this;
+    }
 
     public String getI18n() {
         return i18n;

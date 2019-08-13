@@ -59,7 +59,7 @@ public class ExecutorBizImplTest {
     }
 
     @After
-    public void after(){
+    public void after() {
         if (xxlJobExecutor != null) {
             xxlJobExecutor.destroy();
         }
@@ -79,7 +79,7 @@ public class ExecutorBizImplTest {
     }
 
     @Test
-    public void idleBeat(){
+    public void idleBeat() {
         final int jobId = 0;
 
         // Act
@@ -93,7 +93,7 @@ public class ExecutorBizImplTest {
     }
 
     @Test
-    public void kill(){
+    public void kill() {
         final int jobId = 0;
 
         // Act
@@ -107,7 +107,7 @@ public class ExecutorBizImplTest {
     }
 
     @Test
-    public void log(){
+    public void log() {
         final long logDateTim = 0L;
         final long logId = 0;
         final int fromLineNum = 0;
@@ -120,7 +120,7 @@ public class ExecutorBizImplTest {
     }
 
     @Test
-    public void run(){
+    public void run() {
         // trigger data
         final TriggerParam triggerParam = new TriggerParam();
         triggerParam.setJobId(1);
